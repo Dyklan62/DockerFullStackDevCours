@@ -1,7 +1,6 @@
-FROM node:14
-ENV NODE_ENV=development 
+FROM node:12.18.1
 
-WORKDIR /app
+WORKDIR /app-back-nodeJs
 
 COPY ["package.json", "package-lock.json*", "/public" , "/src", "./" ]
 
@@ -9,7 +8,17 @@ RUN npm install
 
 COPY . .
 
-CMD [ "npm", "start" ]
+EXPOSE 8080
 
+USER node
+
+CMD "npm" "start"
+
+#docker network create DockerProjectbridge
+#cd .\nodedocker\
 #docker build -t "nodeserver" .        
-#docker run -dit --name nodeservercontrainer -p 8080:8080 nodeserver
+#docker run -dit --name nodeservercontainer -p 8080:8080 --network DockerProjectbridge nodeserver
+#cd ..
+#cd .\mysqldocker\
+#docker build -t "mysqlserver" .
+#docker run -d -p 3306:3306 --name mysqlcontainer --network DockerProjectbridge mysqlserver 
