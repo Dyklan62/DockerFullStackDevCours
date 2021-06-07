@@ -3,9 +3,10 @@ const dbConfig = require("./Db.config");
 
 const connection = mysql.createConnection({
   host: dbConfig.HOST,
+  port: dbConfig.PORT,
   user: dbConfig.USER,
   password: dbConfig.PASSWORD,
-  database: dbConfig.DB
+  database: dbConfig.DB,
 });
 
 //connection bdd
