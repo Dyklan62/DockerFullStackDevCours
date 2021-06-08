@@ -8,12 +8,8 @@ services:
     environment:
       MYSQL_DATABASE: DockerDatabaseProjectTest
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: user
-      MYSQL_PASSWORD: user
     ports:
       - "3306:3306"
-    expose:
-      - 3306
     volumes:
       - "./mysqldocker/Dbscripts/:/docker-entrypoint-initdb.d/" 
     restart: always
@@ -22,8 +18,8 @@ services:
       context: .
       dockerfile: nodedocker/Dockerfile
     volumes:
-      - ./app-back-nodeJs
-      - ./app-back-nodeJs/node_modules
+      - ./nodedocker:/nodedocker
+      - ./nodedocker/node_modules:/nodedocker/node_modules
     ports:
       - "8080:8080"
     environment:
@@ -31,7 +27,21 @@ services:
       PORT: 8080
     depends_on:
       - mysqlcontainer
-    expose:
-      - 8080
     command: npm start
-    restart: on-failure
+    restart: always
+  vueservercontainer:
+    build:
+      context: .
+      dockerfile: nodedockerfront/app/Dockerfile
+    volumes:
+      - ./nodedockerfront/app:/nodedockerfront/app
+      - ./nodedockerfront/app/node_modules:/nodedockerfront/app/node_modules
+    ports:
+      - "8081:8081"     
+    environment:
+      NODE_ENV: development
+      PORT: 8081
+    depends_on:
+      - nodeservercontainer
+    restart: always
+  
