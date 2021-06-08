@@ -1,10 +1,5 @@
 FROM mysql
 
-ENV MYSQL_DATABASE DockerDatabaseProjectTest
-ENV MYSQL_ROOT_PASSWORD root  
-ENV MYSQL_USER user  
-ENV MYSQL_PASSWORD user
-
 COPY ./Dbscripts/ /docker-entrypoint-initdb.d/
 
 #docker build -t "mysqlserver" .

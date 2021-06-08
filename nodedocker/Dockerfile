@@ -2,7 +2,7 @@ FROM node:12.18.1
 
 WORKDIR /app-back-nodeJs
 
-COPY ["/nodedocker/package.json", "/nodedocker/package-lock.json*", "/nodedocker/public" , "/nodedocker/src", "./" ]
+COPY ["/nodedocker/app", "./" ]
 
 RUN npm install
 

@@ -2,18 +2,17 @@ FROM node:lts-alpine
 
 RUN npm install -g http-server
 
-WORKDIR /app
+WORKDIR /node-front
 
-COPY package*.json ./
+COPY ["/nodedockerfront/app/package*.json", "/nodedockerfront/app", "./" ]
 
 RUN npm install
 
 COPY . .
 
-RUN npm run build
-
 EXPOSE 8081
-CMD [ "http-server", "dist" ]
+
+CMD ["npm", "run", "serve"]
 
 #docker network create DockerProjectbridge
 #cd .\nodedocker\

@@ -5,11 +5,14 @@ networks:
 services:
   mysqlcontainer:
     image: mysql
+    container_name: mydb
     environment:
+      MYSQL_HOST: localhost
       MYSQL_DATABASE: DockerDatabaseProjectTest
       MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
     volumes:
       - "./mysqldocker/Dbscripts/:/docker-entrypoint-initdb.d/" 
     restart: always
@@ -32,10 +35,10 @@ services:
   vueservercontainer:
     build:
       context: .
-      dockerfile: nodedockerfront/app/Dockerfile
+      dockerfile: nodedockerfront/Dockerfile
     volumes:
-      - ./nodedockerfront/app:/nodedockerfront/app
-      - ./nodedockerfront/app/node_modules:/nodedockerfront/app/node_modules
+      - ./nodedockerfront:/nodedockerfront
+      - ./nodedockerfront/node_modules:/nodedockerfront/node_modules
     ports:
       - "8081:8081"     
     environment:
@@ -44,4 +47,3 @@ services:
     depends_on:
       - nodeservercontainer
     restart: always
-  
