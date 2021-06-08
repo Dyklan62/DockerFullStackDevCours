@@ -17,6 +17,7 @@ services:
       - "./mysqldocker/Dbscripts/:/docker-entrypoint-initdb.d/" 
     restart: always
   nodeservercontainer:
+    container_name: nodeservercontainer
     build:
       context: .
       dockerfile: nodedocker/Dockerfile

@@ -3,7 +3,7 @@
     Users : <br/>
     <div class="list-unstyled" v-for="user in users" :key="user._id">
       <li>
-        {{user.nom}} {{user.prenom}}
+        {{user.Nom}} {{user.Prenom}}
       </li>
       <hr>
     </div>
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-const API_URL = "http://localhost:8080/getList";
+const API_URL = "nodeservercontainer/getList";
 
 export default {
   name: "home",
