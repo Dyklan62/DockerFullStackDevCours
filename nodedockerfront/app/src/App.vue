@@ -11,7 +11,8 @@
 </template>
 
 <script>
-const API_URL = "nodeservercontainer/getList";
+import axios from 'axios'
+const API_URL = "http://localhost:8080/getList";
 
 export default {
   name: "home",
@@ -21,11 +22,8 @@ export default {
   }),
 
   mounted() {
-    fetch(API_URL)
-      .then(response => response.json())
-      .then(result => {
-        this.users = result;
-      });
+    axios.get(API_URL)
+      .then(reponse => this.users = reponse.data).catch(erreur => this.users = [{ nom: "Erreur de chargement" }]);
   },
   methods: {}
 };
